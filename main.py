@@ -84,6 +84,9 @@ def criar_transacao(transacao: TransacaoSchema, usuario=Depends(obter_usuario_at
     resposta = supabase.table("transacoes").insert(dados).execute()
     return {"mensagem": "Transação registrada!", "dados": resposta.data}
 
+@app.get("/", include_in_schema=False)
+def redirecionar_para_docs():
+    return RedirectResponse(url="/docs")
 
 @app.get("/transacoes", tags=["Transações"])
 def listar_transacoes(usuario=Depends(obter_usuario_atual)):
